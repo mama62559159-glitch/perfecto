@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قلبي يا قلبي ❤️</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* توهج أحمر ساطع حول القلب */
+        .glow-heart {
+            filter: drop-shadow(0 0 20px #ff2a5f) drop-shadow(0 0 40px #ff0044);
+        }
+
+        /* توهج الكلمة والنص */
+        .glow-text {
+            text-shadow: 0 0 15px #ff2a5f, 0 0 30px #ff0044, 0 0 50px #ff0044;
+        }
+
+        /* القلوب الخفيفة المتطايرة في الخلفية */
+        .bg-heart {
+            position: absolute;
+            color: rgba(255, 30, 80, 0.25);
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% {
+                transform: translateY(-10vh) scale(1.1) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* انيميشن نبض القلب بعد اكتمال الرسم */
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 20px #ff2a5f) drop-shadow(0 0 35px #ff0044);
+            }
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 30px #ff2a5f) drop-shadow(0 0 55px #ff0044);
+            }
+        }
+
+        .pulse-heart {
+            animation: heartbeat 1.3s ease-in-out infinite;
+        }
+
+        /* حركة اليد والإبهام المكتوبة كفرشة رسم */
+        .hand-pointer {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            z-index: 30;
+            pointer-events: none;
+            transform: translate(-10px, -10px);
+            filter: drop-shadow(0 0 10px #ff2a5f);
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col items-center justify-center relative bg-black select-none">
+
+    <!-- خلفية المنطاد الهوائي الناعمة والمناظر الرومانسية المقتبسة من الصورة -->
+    <div class="absolute inset-0 opacity-20 bg-cover bg-center" style="background-image: radial-gradient(circle at center, #6b1134 0%, #050505 80%);"></div>
+
+    <!-- حاوية القلوب الخلفية -->
+    <div id="bg-hearts-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="relative z-10 flex flex-col items-center justify-center p-4 text-center">
+        
+        <!-- الأفاتار (الشخصية الكرتونية) فوق مسرح الرسم -->
+        <div id="avatarContainer" class="relative mb-2 transition-all duration-700 transform">
+            <svg width="120" height="150" viewBox="0 0 120 150" class="drop-shadow-[0_0_15px_rgba(255,42,95,0.4)]">
+                <!-- الشعر -->
+                <path d="M 35 35 Q 60 15 85 35 Q 90 20 60 10 Q 30 20 35 35 Z" fill="#222222" />
+                <path d="M 30 40 Q 60 20 90 40 Q 80 15 60 12 Q 40 15 30 40 Z" fill="#111111" />
+                <!-- الوجه -->
+                <ellipse cx="60" cy="50" rx="25" ry="28" fill="#f1c27d" />
+                <!-- الشعر الجانبي -->
+                <path d="M 35 30 Q 30 45 35 55" stroke="#222222" stroke-width="6" fill="none" stroke-linecap="round" />
+                <path d="M 85 30 Q 90 45 85 55" stroke="#222222" stroke-width="6" fill="none" stroke-linecap="round" />
+                <!-- العين مفتوحة -->
+                <circle cx="48" cy="48" r="3" fill="#222" />
+                <!-- العين المغموضة (غمزة) -->
+                <path d="M 68 48 Q 74 44 80 48" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                <!-- الحواجب -->
+                <path d="M 42 40 Q 48 37 54 41" stroke="#222" stroke-width="2" fill="none" />
+                <path d="M 66 41 Q 72 37 78 40" stroke="#222" stroke-width="2" fill="none" />
+                <!-- الابتسامة والغمازة -->
+                <path d="M 52 62 Q 60 68 68 62" stroke="#b85b5b" stroke-width="2" fill="none" stroke-linecap="round" />
+                <circle cx="72" cy="62" r="1.5" fill="#b85b5b" />
+                <!-- الملابس: القميص الأسود المفتوح والتيشرت الأبيض -->
+                <path d="M 40 78 L 80 78 L 88 140 L 32 140 Z" fill="#ffffff" />
+                <path d="M 30 78 L 52 78 L 48 140 L 22 140 Z" fill="#1a1a1a" />
+                <path d="M 68 78 L 90 78 L 98 140 L 72 140 Z" fill="#1a1a1a" />
+                <!-- الياقة -->
+                <path d="M 30 78 L 45 92 L 52 78" fill="#1a1a1a" />
+                <path d="M 90 78 L 75 92 L 68 78" fill="#1a1a1a" />
+            </svg>
+        </div>
+
+        <!-- مساحة رسم القلب وبداخلها يد الأفاتار المتفاعلة -->
+        <div class="relative flex items-center justify-center min-h-[260px] min-w-[260px]">
+            <!-- يد الأفاتار التي ترسم -->
+            <div id="drawingHand" class="hand-pointer opacity-0">
+                <svg viewBox="0 0 50 50" width="40" height="40">
+                    <!-- يد تومئ بالإشارة لكرت الرسم -->
+                    <path d="M 10 30 Q 20 10 25 5 Q 28 3 30 8 Q 28 15 22 25 L 40 25 Q 45 35 35 40 L 15 40 Z" fill="#f1c27d" stroke="#d49b59" stroke-width="1.5" />
+                    <circle cx="25" cy="5" r="4" fill="#ff2a5f" class="animate-ping" />
+                </svg>
+            </div>
+
+            <canvas id="heartCanvas" width="340" height="300" class="glow-heart transition-transform duration-300"></canvas>
+        </div>
+
+        <!-- النص الذي يظهر بعد اكتمال رسم الأفاتار للقلب -->
+        <div class="mt-2 flex items-center justify-center gap-2">
+            <h1 id="romanticText" class="text-5xl sm:text-6xl font-black text-white glow-text opacity-0 transition-opacity duration-1000 flex items-center gap-3">
+                <span class="text-rose-500 text-4xl sm:text-5xl drop-shadow-[0_0_15px_#ff0044]">❤️</span> قلبي
+            </h1>
+        </div>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        const romanticTextEl = document.getElementById('romanticText');
+        const drawingHand = document.getElementById('drawingHand');
+        const avatarContainer = document.getElementById('avatarContainer');
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const center = { x: width / 2, y: height / 2 - 15 };
+
+        let heartOutlinePoints = [];
+        let drawnParticles = [];
+        let burstParticles = [];
+        let isDrawComplete = false;
+
+        // توليد نقاط معادلة شكل القلب
+        function generateHeartPoints() {
+            const points = [];
+            const totalPoints = 160;
+            for (let i = 0; i < totalPoints; i++) {
+                const t = (i / totalPoints) * Math.PI * 2;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                
+                const scale = 9.5;
+                points.push({
+                    x: center.x + x * scale,
+                    y: center.y + y * scale
+                });
+            }
+            return points;
+        }
+
+        heartOutlinePoints = generateHeartPoints();
+        let currentPointIndex = 0;
+        let speed = 2;
+
+        // دالة تحريك اليد لترسم القلب تدريجياً
+        function drawAnimatedHeartStroke() {
+            ctx.clearRect(0, 0, width, height);
+
+            if (currentPointIndex < heartOutlinePoints.length) {
+                for (let i = 0; i < speed && currentPointIndex < heartOutlinePoints.length; i++) {
+                    const currentPt = heartOutlinePoints[currentPointIndex];
+                    drawnParticles.push(currentPt);
+
+                    // تحريك موقع يد الشخصية الكرتونية إلى نقطة الرسم الحالية
+                    const canvasRect = canvas.getBoundingClientRect();
+                    const containerRect = canvas.parentElement.getBoundingClientRect();
+                    
+                    const handX = (currentPt.x * (canvasRect.width / width)) + (canvasRect.left - containerRect.left);
+                    const handY = (currentPt.y * (canvasRect.height / height)) + (canvasRect.top - containerRect.top);
+
+                    drawingHand.style.left = `${handX}px`;
+                    drawingHand.style.top = `${handY}px`;
+                    drawingHand.style.opacity = '1';
+
+                    currentPointIndex++;
+                }
+            } else {
+                if (!isDrawComplete) {
+                    isDrawComplete = true;
+                    drawingHand.style.opacity = '0';
+                    onHeartComplete();
+                }
+            }
+
+            // رسم مسار خط القلب المتوهج
+            if (drawnParticles.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(drawnParticles[0].x, drawnParticles[0].y);
+                for (let i = 1; i < drawnParticles.length; i++) {
+                    ctx.lineTo(drawnParticles[i].x, drawnParticles[i].y);
+                }
+                ctx.closePath();
+
+                ctx.strokeStyle = '#ff2a5f';
+                ctx.lineWidth = 5;
+                ctx.shadowColor = '#ff0044';
+                ctx.shadowBlur = 25;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+
+                // تعبئة اللون الأحمر المضيء فور انتهاء الشخصية من رسمه
+                if (isDrawComplete) {
+                    const fillGradient = ctx.createRadialGradient(center.x, center.y, 10, center.x, center.y, 100);
+                    fillGradient.addColorStop(0, '#ff2a5f');
+                    fillGradient.addColorStop(0.7, '#ff0044');
+                    fillGradient.addColorStop(1, '#cc0033');
+                    
+                    ctx.fillStyle = fillGradient;
+                    ctx.fill();
+                }
+            }
+
+            updateBurstParticles();
+
+            requestAnimationFrame(drawAnimatedHeartStroke);
+        }
+
+        // عند اكتمال رسم القلب بواسطة الشخصية
+        function onHeartComplete() {
+            canvas.classList.add('pulse-heart');
+            // إخفاء الأفاتار بسلاسة أو رفعه للأعلى لتسليط الضوء على القلب
+            avatarContainer.classList.add('-translate-y-3', 'scale-105');
+            setTimeout(() => {
+                romanticTextEl.classList.remove('opacity-0');
+            }, 300);
+        }
+
+        // تأثير انبعاث القلوب عند النقر
+        class BurstParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 4;
+                this.speedX = (Math.random() - 0.5) * 7;
+                this.speedY = (Math.random() - 0.5) * 7 - 2;
+                this.opacity = 1;
+                this.decay = Math.random() * 0.025 + 0.015;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = '#ff2a5f';
+                ctx.shadowColor = '#ff0044';
+                ctx.shadowBlur = 12;
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createBurst(x, y) {
+            for (let i = 0; i < 25; i++) {
+                burstParticles.push(new BurstParticle(x, y));
+            }
+        }
+
+        function updateBurstParticles() {
+            for (let i = burstParticles.length - 1; i >= 0; i--) {
+                burstParticles[i].update();
+                burstParticles[i].draw();
+                if (burstParticles[i].opacity <= 0) {
+                    burstParticles.splice(i, 1);
+                }
+            }
+        }
+
+        // القلوب الهادئة في الخلفية
+        function createAmbientHearts() {
+            const container = document.getElementById('bg-hearts-container');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'fa-solid fa-heart bg-heart';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 16 + 10}px`;
+                heart.style.animationDuration = `${Math.random() * 6 + 5}s`;
+                heart.style.animationDelay = `${Math.random() * 4}s`;
+                container.appendChild(heart);
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            if (x >= 0 && x <= width && y >= 0 && y <= height) {
+                createBurst(x, y);
+            } else {
+                createBurst(center.x, center.y);
+            }
+        });
+
+        window.onload = () => {
+            createAmbientHearts();
+            setTimeout(() => {
+                drawAnimatedHeartStroke();
+            }, 600);
+        };
+    </script>
+</body>
+</html>
